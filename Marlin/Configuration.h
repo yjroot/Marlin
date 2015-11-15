@@ -379,11 +379,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #ifdef ENABLE_AUTO_BED_LEVELING
 
   // these are the positions on the bed to do the probing
-  #define DELTA_PROBABLE_RADIUS (DELTA_PRINTABLE_RADIUS*0.70)
-  #define LEFT_PROBE_BED_POSITION -DELTA_PRINTABLE_RADIUS
-  #define RIGHT_PROBE_BED_POSITION DELTA_PRINTABLE_RADIUS
-  #define BACK_PROBE_BED_POSITION DELTA_PRINTABLE_RADIUS
-  #define FRONT_PROBE_BED_POSITION -DELTA_PRINTABLE_RADIUS
+  #define DELTA_PROBABLE_RADIUS (DELTA_PRINTABLE_RADIUS*0.875)
+  #define LEFT_PROBE_BED_POSITION -DELTA_PROBABLE_RADIUS
+  #define RIGHT_PROBE_BED_POSITION DELTA_PROBABLE_RADIUS
+  #define BACK_PROBE_BED_POSITION DELTA_PROBABLE_RADIUS
+  #define FRONT_PROBE_BED_POSITION (-DELTA_PROBABLE_RADIUS*0.67)
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   #define X_PROBE_OFFSET_FROM_EXTRUDER 0.0
@@ -393,7 +393,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
 
-  #define XY_TRAVEL_SPEED 8000         // X and Y axis travel speed between probes, in mm/min
+  #define XY_TRAVEL_SPEED 10000         // X and Y axis travel speed between probes, in mm/min
 
   #define Z_RAISE_BEFORE_PROBING 10  //How much the extruder will be raised before traveling to the first probing point.
   #define Z_RAISE_BETWEEN_PROBINGS 6  //How much the extruder will be raised when traveling from between next probing points
@@ -429,7 +429,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #define ACCURATE_BED_LEVELING
 
   #ifdef ACCURATE_BED_LEVELING
-    #define ACCURATE_BED_LEVELING_POINTS 9
+    #define ACCURATE_BED_LEVELING_POINTS 11
     #define ACCURATE_BED_LEVELING_GRID_X ((RIGHT_PROBE_BED_POSITION - LEFT_PROBE_BED_POSITION) / (ACCURATE_BED_LEVELING_POINTS - 1))
     #define ACCURATE_BED_LEVELING_GRID_Y ((BACK_PROBE_BED_POSITION - FRONT_PROBE_BED_POSITION) / (ACCURATE_BED_LEVELING_POINTS - 1))
 
