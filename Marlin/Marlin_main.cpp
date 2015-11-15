@@ -1065,7 +1065,7 @@ static void retract_z_probe() {
     destination[Z_AXIS] = current_position[Z_AXIS] + 20;
     prepare_move_raw();
 
-    destination[X_AXIS] = -40.50;
+    destination[X_AXIS] = -39.30;
     destination[Y_AXIS] = 80.30;
     destination[Z_AXIS] = 14.00;
     prepare_move_raw();
@@ -1077,7 +1077,7 @@ static void retract_z_probe() {
 
     st_synchronize();
     while(!(READ(Z_MIN_PIN)^Z_MIN_ENDSTOP_INVERTING)) {
-        feedrate = homing_feedrate[Z_AXIS]/10;
+        feedrate = homing_feedrate[Z_AXIS]/16;
         destination[Z_AXIS] = current_position[Z_AXIS] - 14.5;
         prepare_move_raw();
     
