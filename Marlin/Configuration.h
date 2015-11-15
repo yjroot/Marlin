@@ -81,10 +81,10 @@
 #define DELTA_SMOOTH_ROD_OFFSET 151.5 // mm
 
 // Horizontal offset of the universal joints on the end effector.
-#define DELTA_EFFECTOR_OFFSET 30.0 // mm
+#define DELTA_EFFECTOR_OFFSET 19.9 // mm
 
 // Horizontal offset of the universal joints on the carriages.
-#define DELTA_CARRIAGE_OFFSET 30.0 // mm
+#define DELTA_CARRIAGE_OFFSET 19.5 // mm
 
 // Horizontal distance bridged by diagonal push rods when effector is centered.
 #define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET)
@@ -328,8 +328,8 @@ your extruder heater takes 2 minutes to hit the target on heating.
 #endif
 
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
-const bool X_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
-const bool Y_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
+const bool X_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
+const bool Y_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool Z_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
@@ -409,11 +409,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   #ifdef AUTO_BED_LEVELING_GRID
 
     // set the rectangle in which to probe
-    #define DELTA_PROBABLE_RADIUS (DELTA_PRINTABLE_RADIUS*0.90)
+    #define DELTA_PROBABLE_RADIUS (DELTA_PRINTABLE_RADIUS*0.85)
     #define LEFT_PROBE_BED_POSITION -DELTA_PROBABLE_RADIUS
     #define RIGHT_PROBE_BED_POSITION DELTA_PROBABLE_RADIUS
     #define BACK_PROBE_BED_POSITION DELTA_PROBABLE_RADIUS
-    #define FRONT_PROBE_BED_POSITION (-DELTA_PROBABLE_RADIUS*0.67)
+    #define FRONT_PROBE_BED_POSITION (-DELTA_PROBABLE_RADIUS*0.75)
 
     // probe at the points of a lattice grid
     #define AUTO_BED_LEVELING_GRID_POINTS 11

@@ -1059,7 +1059,7 @@ static void run_z_probe() {
     float start_z = current_position[Z_AXIS];
     long start_steps = st_get_position(Z_AXIS);
 
-    feedrate = homing_feedrate[Z_AXIS]/10;
+    feedrate = homing_feedrate[Z_AXIS]/20;
     destination[Z_AXIS] = -10;
     prepare_move_raw();
     st_synchronize();
