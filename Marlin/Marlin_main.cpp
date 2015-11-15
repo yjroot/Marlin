@@ -916,7 +916,7 @@ static void run_z_probe() {
     float start_z = current_position[Z_AXIS];
     long start_steps = st_get_position(Z_AXIS);
 
-    feedrate = homing_feedrate[Z_AXIS]/4;
+    feedrate = homing_feedrate[Z_AXIS]/10;
     destination[Z_AXIS] = -10;
     prepare_move_raw();
     st_synchronize();
@@ -1024,13 +1024,20 @@ static void engage_z_probe() {
     }
     #else // Deploy the Z probe by touching the belt, no servo needed.
     feedrate = homing_feedrate[X_AXIS];
+    //destination[X_AXIS] = 35;
+    //destination[Y_AXIS] = 72;
+    //destination[Z_AXIS] = 100;
     destination[X_AXIS] = 35;
-    destination[Y_AXIS] = 72;
+    destination[Y_AXIS] = 95;
     destination[Z_AXIS] = 100;
     prepare_move_raw();
 
     feedrate = homing_feedrate[X_AXIS]/10;
     destination[X_AXIS] = 0;
+    prepare_move_raw();
+
+    feedrate = homing_feedrate[X_AXIS];
+    destination[Y_AXIS] = 0;
     prepare_move_raw();
     st_synchronize();
     #endif //SERVO_ENDSTOPS
@@ -1058,9 +1065,9 @@ static void retract_z_probe() {
     destination[Z_AXIS] = current_position[Z_AXIS] + 20;
     prepare_move_raw();
 
-    destination[X_AXIS] = -46;
-    destination[Y_AXIS] = 59;
-    destination[Z_AXIS] = 28;
+    destination[X_AXIS] = -40.50;
+    destination[Y_AXIS] = 80.30;
+    destination[Z_AXIS] = 14.00;
     prepare_move_raw();
 
     // TODO: Move the nozzle down until the Z probe switch is activated.
@@ -1068,14 +1075,28 @@ static void retract_z_probe() {
     //destination[Z_AXIS] = current_position[Z_AXIS] - 30;
     //enable_endstops(false);
 
-    // Move the nozzle down further to push the probe into retracted position.
-    feedrate = homing_feedrate[Z_AXIS]/10;
-    destination[Z_AXIS] = current_position[Z_AXIS] - 20;
+    st_synchronize();
+    while(!(READ(Z_MIN_PIN)^Z_MIN_ENDSTOP_INVERTING)) {
+        feedrate = homing_feedrate[Z_AXIS]/10;
+        destination[Z_AXIS] = current_position[Z_AXIS] - 14.5;
+        prepare_move_raw();
+    
+        feedrate = homing_feedrate[Z_AXIS];
+        destination[Z_AXIS] = current_position[Z_AXIS] + 14.5;
+        prepare_move_raw();
+        
+        st_synchronize();
+    }
+        
+    feedrate = homing_feedrate[Z_AXIS];
+    destination[Z_AXIS] = current_position[Z_AXIS] + 15;
     prepare_move_raw();
 
-    feedrate = homing_feedrate[Z_AXIS];
-    destination[Z_AXIS] = current_position[Z_AXIS] + 30;
+    destination[X_AXIS] = 0;
+    destination[Y_AXIS] = 0;
+    destination[Z_AXIS] = 25;
     prepare_move_raw();
+    
     st_synchronize();
     #endif //SERVO_ENDSTOPS
 }
@@ -1631,6 +1652,7 @@ void process_commands()
 
                 float z_before = probePointCounter == 0 ? Z_RAISE_BEFORE_PROBING :
                   current_position[Z_AXIS] + Z_RAISE_BETWEEN_PROBINGS;
+                  
                 float measured_z = probe_pt(xProbe, yProbe, z_before);
 
                 #ifdef NONLINEAR_BED_LEVELING

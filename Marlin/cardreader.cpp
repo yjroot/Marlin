@@ -147,6 +147,7 @@ void CardReader::ls()
 void CardReader::initsd()
 {
   cardOK = false;
+  return;
   if(root.isOpen())
     root.close();
 #ifdef SDSLOW

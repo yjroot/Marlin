@@ -25,7 +25,7 @@
 
 // This determines the communication speed of the printer
 // This determines the communication speed of the printer
-#define BAUDRATE 250000
+#define BAUDRATE 115200
 
 // This enables the serial port associated to the Bluetooth interface
 //#define BTENABLED              // Enable BT interface on AT90USB devices
@@ -72,7 +72,7 @@
 // 21 = Elefu Ra Board (v3)
 
 #ifndef MOTHERBOARD
-#define MOTHERBOARD 81
+#define MOTHERBOARD 33
 #endif
 
 // Define this to set a custom name for your generic Mendel,
@@ -89,7 +89,7 @@
 // 1 = ATX
 // 2 = X-Box 360 203Watts (the blue wire connected to PS_ON and the red wire to VCC)
 
-#define POWER_SUPPLY 1
+#define POWER_SUPPLY 2
 
 // Define this to have the electronics keep the power supply off on startup. If you don't know what this is leave it.
 // #define PS_DEFAULT_OFF
@@ -109,7 +109,8 @@
 #define DELTA_DIAGONAL_ROD 215.0 // mm
 
 // Horizontal offset from middle of printer to smooth rod center.
-#define DELTA_SMOOTH_ROD_OFFSET 145.0 // mm
+//#define DELTA_SMOOTH_ROD_OFFSET 145.0 // mm
+#define DELTA_SMOOTH_ROD_OFFSET 151.0 // mm
 
 // Horizontal offset of the universal joints on the end effector.
 #define DELTA_EFFECTOR_OFFSET 19.9 // mm
@@ -121,7 +122,7 @@
 #define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-DELTA_EFFECTOR_OFFSET-DELTA_CARRIAGE_OFFSET)
 
 // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-#define DELTA_PRINTABLE_RADIUS 90.0
+#define DELTA_PRINTABLE_RADIUS 110.0
 
 // Effective X/Y positions of the three vertical towers.
 #define SIN_60 0.8660254037844386
@@ -174,7 +175,7 @@
 #define TEMP_SENSOR_0 5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_BED 5
+#define TEMP_SENSOR_BED 4
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -188,10 +189,10 @@
 // The minimal temperature defines the temperature below which the heater will not be enabled It is used
 // to check that the wiring to the thermistor is not broken.
 // Otherwise this would lead to the heater being powered on all the time.
-#define HEATER_0_MINTEMP 5
-#define HEATER_1_MINTEMP 5
-#define HEATER_2_MINTEMP 5
-#define BED_MINTEMP 1
+#define HEATER_0_MINTEMP 0
+#define HEATER_1_MINTEMP 0
+#define HEATER_2_MINTEMP 0
+#define BED_MINTEMP 0
 
 // When temperature exceeds max temp, your heater will be switched off.
 // This feature exists to protect your hotend from overheating accidentally, but *NOT* from thermistor short/failure!
@@ -226,9 +227,9 @@
 
 // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 // Ultimaker
-    #define  DEFAULT_Kp 22.2
-    #define  DEFAULT_Ki 1.08
-    #define  DEFAULT_Kd 114
+    #define  DEFAULT_Kp 27.67
+    #define  DEFAULT_Ki 2.74
+    #define  DEFAULT_Kd 69.86
 
 // MakerGear
 //    #define  DEFAULT_Kp 7.0
@@ -251,7 +252,7 @@
 // If your configuration is significantly different than this and you don't understand the issues involved, you probably
 // shouldn't use bed PID until someone else verifies your hardware works.
 // If this is enabled, find your own PID constants below.
-//#define PIDTEMPBED
+#define PIDTEMPBED
 //
 //#define BED_LIMIT_SWITCHING
 
@@ -264,9 +265,9 @@
 #ifdef PIDTEMPBED
 //120v 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-    #define  DEFAULT_bedKp 10.00
-    #define  DEFAULT_bedKi .023
-    #define  DEFAULT_bedKd 305.4
+    #define  DEFAULT_bedKp 763.50
+    #define  DEFAULT_bedKi 97.90
+    #define  DEFAULT_bedKd 1488.55
 
 //120v 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 //from pidautotune
@@ -320,7 +321,7 @@
 // The pullups are needed if you directly connect a mechanical endswitch between the signal and ground pins.
 const bool X_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
-const bool Z_MIN_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
+const bool Z_MIN_ENDSTOP_INVERTING = true; // set to true to invert the logic of the endstop.
 const bool X_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Y_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
 const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic of the endstop.
@@ -347,7 +348,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define INVERT_X_DIR false    // for Mendel set to false, for Orca set to true
 #define INVERT_Y_DIR false    // for Mendel set to true, for Orca set to false
 #define INVERT_Z_DIR false    // for Mendel set to false, for Orca set to true
-#define INVERT_E0_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
+#define INVERT_E0_DIR true   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E1_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 #define INVERT_E2_DIR false   // for direct drive extruder v9 set to true, for geared extruder set to false
 
@@ -378,7 +379,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #ifdef ENABLE_AUTO_BED_LEVELING
 
   // these are the positions on the bed to do the probing
-  #define DELTA_PROBABLE_RADIUS (DELTA_PRINTABLE_RADIUS*0.9)
+  #define DELTA_PROBABLE_RADIUS (DELTA_PRINTABLE_RADIUS*0.70)
   #define LEFT_PROBE_BED_POSITION -DELTA_PRINTABLE_RADIUS
   #define RIGHT_PROBE_BED_POSITION DELTA_PRINTABLE_RADIUS
   #define BACK_PROBE_BED_POSITION DELTA_PRINTABLE_RADIUS
@@ -386,16 +387,16 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   #define X_PROBE_OFFSET_FROM_EXTRUDER 0.0
-  #define Y_PROBE_OFFSET_FROM_EXTRUDER 0.0
-  #define Z_PROBE_OFFSET_FROM_EXTRUDER 0.1  // Increase this if the first layer is too thin.
+  #define Y_PROBE_OFFSET_FROM_EXTRUDER 10.0
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER -7.60  // Increase this if the first layer is too thin.
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
 
   #define XY_TRAVEL_SPEED 8000         // X and Y axis travel speed between probes, in mm/min
 
-  #define Z_RAISE_BEFORE_PROBING 5  //How much the extruder will be raised before traveling to the first probing point.
-  #define Z_RAISE_BETWEEN_PROBINGS 1  //How much the extruder will be raised when traveling from between next probing points
+  #define Z_RAISE_BEFORE_PROBING 10  //How much the extruder will be raised before traveling to the first probing point.
+  #define Z_RAISE_BETWEEN_PROBINGS 6  //How much the extruder will be raised when traveling from between next probing points
   #define Z_RAISE_AFTER_PROBING 50  //How much the extruder will be raised after the last probing point.
 
 
@@ -441,7 +442,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
   // Force Sensing Resistors under the print surface, wired to heated bed thermistor input.
   // Autolevel by measuring how much the hotend is pushing down, without separate Z probe.
-  #define FSR_BED_LEVELING
+  //#define FSR_BED_LEVELING
 #endif
 
 
@@ -453,7 +454,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 // For deltabots this means top and center of the Cartesian print volume.
 #define MANUAL_X_HOME_POS 0
 #define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 250  // Distance between nozzle and print surface after homing.
+#define MANUAL_Z_HOME_POS 232  // Distance between nozzle and print surface after homing.
 
 //// MOVEMENT SETTINGS
 #define NUM_AXIS 4 // The axis order in all axis related arrays is X, Y, Z, E
@@ -467,9 +468,10 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define XYZ_PULLEY_TEETH 16
 #define XYZ_STEPS (XYZ_FULL_STEPS_PER_ROTATION * XYZ_MICROSTEPS / double(XYZ_BELT_PITCH) / double(XYZ_PULLEY_TEETH))
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, 100}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, XYZ_FULL_STEPS_PER_ROTATION * XYZ_MICROSTEPS / double(16.5)}
 #define DEFAULT_MAX_FEEDRATE          {200, 200, 200, 200}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {9000,9000,9000,9000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
+//#define DEFAULT_MAX_FEEDRATE          {40, 40, 40, 40}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {300,300,300,300}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  3000   // X, Y, Z and E max acceleration in mm/s^2 for retracts
@@ -505,8 +507,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 #define PLA_PREHEAT_HPB_TEMP 70
 #define PLA_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
-#define ABS_PREHEAT_HOTEND_TEMP 240
-#define ABS_PREHEAT_HPB_TEMP 100
+#define ABS_PREHEAT_HOTEND_TEMP 190
+#define ABS_PREHEAT_HPB_TEMP 90
 #define ABS_PREHEAT_FAN_SPEED 255   // Insert Value between 0 and 255
 
 //LCD and SD support
@@ -527,7 +529,7 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
 
 // The RepRapDiscount Smart Controller (white PCB)
 // http://reprap.org/wiki/RepRapDiscount_Smart_Controller
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_SMART_CONTROLLER
 
 // The GADGETS3D G3D LCD/SD Controller (blue PCB)
 // http://reprap.org/wiki/RAMPS_1.3/1.4_GADGETS3D_Shield_with_Panel
