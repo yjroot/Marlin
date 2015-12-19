@@ -1513,6 +1513,52 @@ static void dock_sled(bool dock, int offset=0) {
 }
 #endif
 
+static void turn_off_powersupply()
+{
+  disable_heater();
+  st_synchronize();
+  disable_e0();
+  disable_e1();
+  disable_e2();
+  finishAndDisableSteppers();
+  fanSpeed = 0;
+  delay(1000); // Wait a little before to switch off
+#if defined(SUICIDE_PIN) && SUICIDE_PIN > -1
+  st_synchronize();
+  suicide();
+#elif defined(PS_ON_PIN) && PS_ON_PIN > -1
+  SET_OUTPUT(PS_ON_PIN);
+  WRITE(PS_ON_PIN, PS_ON_ASLEEP);
+#endif
+#ifdef ULTIPANEL
+  powersupply = false;
+  LCD_MESSAGEPGM(MACHINE_NAME" "MSG_OFF".");
+  lcd_update();
+#endif
+}
+
+static void turn_on_powersupply()
+{
+#if defined(PS_ON_PIN) && PS_ON_PIN > -1
+  SET_OUTPUT(PS_ON_PIN); //GND
+  WRITE(PS_ON_PIN, PS_ON_AWAKE);
+  
+  // If you have a switch on suicide pin, this is useful
+  // if you want to start another print with suicide feature after
+  // a print without suicide...
+#if defined SUICIDE_PIN && SUICIDE_PIN > -1
+  SET_OUTPUT(SUICIDE_PIN);
+  WRITE(SUICIDE_PIN, HIGH);
+#endif
+
+#ifdef ULTIPANEL
+  powersupply = true;
+  LCD_MESSAGEPGM(WELCOME_MSG);
+  lcd_update();
+#endif
+#endif
+}
+
 void process_commands()
 {
   unsigned long codenum; //throw away variable
@@ -2820,48 +2866,14 @@ Sigma_Exit:
     #endif
 
     #if defined(PS_ON_PIN) && PS_ON_PIN > -1
-      case 80: // M80 - Turn on Power Supply
-        SET_OUTPUT(PS_ON_PIN); //GND
-        WRITE(PS_ON_PIN, PS_ON_AWAKE);
-
-        // If you have a switch on suicide pin, this is useful
-        // if you want to start another print with suicide feature after
-        // a print without suicide...
-        #if defined SUICIDE_PIN && SUICIDE_PIN > -1
-            SET_OUTPUT(SUICIDE_PIN);
-            WRITE(SUICIDE_PIN, HIGH);
-        #endif
-
-        #ifdef ULTIPANEL
-          powersupply = true;
-          LCD_MESSAGEPGM(WELCOME_MSG);
-          lcd_update();
-        #endif
-        break;
-      #endif
-
-      case 81: // M81 - Turn off Power Supply
-        disable_heater();
-        st_synchronize();
-        disable_e0();
-        disable_e1();
-        disable_e2();
-        finishAndDisableSteppers();
-        fanSpeed = 0;
-        delay(1000); // Wait a little before to switch off
-      #if defined(SUICIDE_PIN) && SUICIDE_PIN > -1
-        st_synchronize();
-        suicide();
-      #elif defined(PS_ON_PIN) && PS_ON_PIN > -1
-        SET_OUTPUT(PS_ON_PIN);
-        WRITE(PS_ON_PIN, PS_ON_ASLEEP);
-      #endif
-      #ifdef ULTIPANEL
-        powersupply = false;
-        LCD_MESSAGEPGM(MACHINE_NAME" "MSG_OFF".");
-        lcd_update();
-      #endif
-	  break;
+    case 80: // M80 - Turn on Power Supply
+      turn_on_powersupply();
+      break;
+    #endif
+    
+    case 81: // M81 - Turn off Power Supply
+      turn_off_powersupply();
+      break;
 
     case 82:
       axis_relative_modes[3] = false;
