@@ -1637,6 +1637,9 @@ void process_commands()
       break;
       #endif //FWRETRACT
     case 28: //G28 Home all Axis one at a time
+      if (!powersupply) {
+        turn_on_powersupply();
+      }
 #ifdef ENABLE_AUTO_BED_LEVELING
       plan_bed_level_matrix.set_to_identity();  //Reset the plane ("erase" all leveling data)
 #endif //ENABLE_AUTO_BED_LEVELING
@@ -2609,6 +2612,9 @@ Sigma_Exit:
 #endif		// ENABLE_AUTO_BED_LEVELING
 
     case 104: // M104
+      if (!powersupply) {
+        turn_on_powersupply();
+      }
       if(setTargetedHotend(104)){
         break;
       }
@@ -2623,6 +2629,9 @@ Sigma_Exit:
       kill();
       break;
     case 140: // M140 set bed temp
+      if (!powersupply) {
+        turn_on_powersupply();
+      }
       if (code_seen('S')) setTargetBed(code_value());
       break;
     case 105 : // M105
@@ -2783,6 +2792,9 @@ Sigma_Exit:
       }
       break;
     case 190: // M190 - Wait for bed heater to reach target.
+      if (!powersupply) {
+        turn_on_powersupply();
+      }
     #if defined(TEMP_BED_PIN) && TEMP_BED_PIN > -1
         LCD_MESSAGEPGM(MSG_BED_HEATING);
         if (code_seen('S')) {
