@@ -131,7 +131,7 @@
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "Black"
+#define CUSTOM_MACHINE_NAME "Red"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -657,19 +657,15 @@
   #define DELTA_PRINTABLE_RADIUS 130.0     // (mm)
 
   // Center-to-center distance of the holes in the diagonal push rods.
-  #define DELTA_DIAGONAL_ROD 283.0        // (mm)
+  #define DELTA_DIAGONAL_ROD 270.8        // (mm)
 
   // Distance between bed and nozzle Z home position
-  #define DELTA_HEIGHT 369.36             // (mm) Get this value from G33 auto calibrate
+  #define DELTA_HEIGHT 265.81             // (mm) Get this value from G33 auto calibrate
 
   #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-  //#define DELTA_RADIUS 117.5              // (mm) Get this value from G33 auto calibrate
-  //#define DELTA_RADIUS 116.5              // (mm) Get this value from G33 auto calibrate
-  //#define DELTA_RADIUS 70.5              // (mm) Get this value from G33 auto calibrate  ^
-  #define DELTA_RADIUS 123.0              // (mm) Get this value from G33 auto calibrate
-  //#define DELTA_RADIUS 157              // (mm) Get this value from G33 auto calibrate
+  #define DELTA_RADIUS 125.5              // (mm) Get this value from G33 auto calibrate
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
